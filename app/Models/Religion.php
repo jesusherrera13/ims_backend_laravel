@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Religion extends Model
 {
     use HasFactory;
+
+    protected $table = 'system_religiones';
+
+    //nombre
+    protected $fillable = [
+        'nombre'
+    ];
 }
