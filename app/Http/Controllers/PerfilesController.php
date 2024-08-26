@@ -21,12 +21,10 @@ class PerfilesController extends Controller
     public function create(Request $request)
     {
         $fields = $request->validate([
-            'apellido' => 'required|string' ,
             'nombre' => 'required|string',
         ]);
 
         $perfiles = Perfiles::create([
-            'apellido' => $fields['apellido'],
             'nombre' => $fields['nombre'],
             
         ]);
@@ -53,7 +51,6 @@ class PerfilesController extends Controller
     public function update(Request $request, Perfiles $Perfiles)
     {
         $fields = $request->validate([
-            'apellido' => 'required|string',
             'nombre' => 'required|string',
             // 'password' => 'required|string|confirmed',
         ]);
