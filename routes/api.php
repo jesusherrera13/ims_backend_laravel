@@ -25,6 +25,8 @@ use App\Http\Controllers\UserPlazaController;
 use App\Http\Controllers\ServiceProviderController;
 use App\Http\Controllers\FortiaController;
 use App\Http\Controllers\SyncLogController;
+use App\Http\Controllers\PerfilesController;
+use App\Models\Perfiles;
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
@@ -122,4 +124,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/cloud-provider', [ServiceProviderController::class, 'index']);
     Route::post('/cloud-provider-sync', [ServiceProviderController::class, 'sync']);
     Route::post('/sync-log-unlock', [SyncLogController::class, 'syncLogUnlock']);
+
+    Route::get('/perfiles', [PerfilesController::class, 'index']);
+    Route::get('/perfiles/{perfiles}', [PerfilesController::class, 'show']);
+    Route::post('/perfiles', [PerfilesController::class, 'create']);
+    Route::put('/perfiles/{perfiles}', [PerfilesController::class, 'update']);
+    Route::delete('/perfiles/{perfiles}', [PerfilesController::class, 'destroy' ]);
 });
