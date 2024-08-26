@@ -24,20 +24,20 @@ class DatabaseSeeder extends Seeder
             'is_master' => 1
         ]);
 
-        /* 
+        
         User::factory()->create([
-            'name' => 'PMO',
+            'name' => 'Doctor',
             'email' => 'pmo@gmail.com',
             'password' => '$2y$12$92oHkBPmFAhEJ2PdkvhU6Od4QM3zme52DuedSFdWIEysJzOPlQYTq'
         ]);
 
         User::factory()->create([
-            'name' => 'CEO',
+            'name' => 'Servidor',
             'email' => 'ceo@gmail.com',
             'password' => '$2y$12$92oHkBPmFAhEJ2PdkvhU6Od4QM3zme52DuedSFdWIEysJzOPlQYTq'
         ]);
 
-        \App\Models\User::factory(299)->create(); 
-        */
+        // \App\Models\User::factory(299)->create(); 
+       
     }
 }
