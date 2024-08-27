@@ -11,7 +11,6 @@ class Perfiles extends Model
     protected $table = "perfiles";
 
     protected $fillable = [
-        'apellido' ,
         'nombre',
     ];
 }
