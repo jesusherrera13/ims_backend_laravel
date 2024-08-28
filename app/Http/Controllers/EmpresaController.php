@@ -25,13 +25,14 @@ class EmpresaController extends Controller
         $fields = $request->validate([
             'razon_social' => 'required|string',
             'nombre_comercial' => 'required|string',
+            'rfc' => 'required|string',
             'pais_id' => 'nullable|integer',
             'estado_id' => 'nullable|integer',
             'municipio_id' => 'nullable|integer',
             'codigo_postal' => 'nullable|integer', 
             'ciudad_id' => 'nullable|integer',
             'colonia_id' => 'nullable|integer',
-            'regimend_id' => 'nullable|integer',
+            'regimen_id' => 'nullable|integer',
             'calle' => 'required|string',
             'numero_exterior' => 'required|string',
             'numero_interior' => 'required|string',
@@ -41,17 +42,18 @@ class EmpresaController extends Controller
         $empresa = Empresa::create([
             'razon_social' => $fields['razon_social'],
             'nombre_comercial' => $fields['nombre_comercial'],
+            'rfc' => $fields['rfc'],
             'pais_id' => $fields['pais_id'] ?? null,
             'estado_id' => $fields['estado_id'] ?? null,
             'municipio_id' => $fields['municipio_id'] ?? null,
             'ciudad_id' => $fields['ciudad_id'] ?? null,
             'colonia_id' => $fields['colonia_id'] ?? null,
             'codigo_postal' => $fields['codigo_postal'] ?? null,
-            'calle' => $fields['calle'],
+            'calle' => $fields['calle'] ,
             'numero_exterior' => $fields['numero_exterior'],
             'numero_interior' => $fields['numero_interior'],
             'registro_patronal' => $fields['registro_patronal'],   
-             'regimen_id' => $fields['regimend_id'] ?? null,
+             'regimen_id' => $fields['regimen_id'] ?? null,
            
 
         
@@ -82,6 +84,7 @@ class EmpresaController extends Controller
         $fields = $request->validate([
             'razon_social' => 'required|string',
             'nombre_comercial' => 'required|string',
+            'rfc' => 'required|string',
             'pais_id' => 'nullable|integer',
             'estado_id' => 'nullable|integer',
             'municipio_id' => 'nullable|integer',
