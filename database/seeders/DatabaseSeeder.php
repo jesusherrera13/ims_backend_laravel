@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 
 use App\Models\User;
+use App\Models\Perfiles;
 
 
 
@@ -24,20 +25,20 @@ class DatabaseSeeder extends Seeder
             'is_master' => 1
         ]);
 
-        /* 
+        
         User::factory()->create([
-            'name' => 'PMO',
-            'email' => 'pmo@gmail.com',
+            'name' => 'Doctor',
+            'email' => 'doctor@gmail.com',
             'password' => '$2y$12$92oHkBPmFAhEJ2PdkvhU6Od4QM3zme52DuedSFdWIEysJzOPlQYTq'
         ]);
 
         User::factory()->create([
-            'name' => 'CEO',
-            'email' => 'ceo@gmail.com',
+            'name' => 'Secretaria',
+            'email' => 'secretaria@gmail.com',
             'password' => '$2y$12$92oHkBPmFAhEJ2PdkvhU6Od4QM3zme52DuedSFdWIEysJzOPlQYTq'
         ]);
 
-        \App\Models\User::factory(299)->create(); 
-        */
+        // \App\Models\User::factory(299)->create(); 
+       
     }
 }
