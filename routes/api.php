@@ -27,7 +27,11 @@ use App\Http\Controllers\FortiaController;
 use App\Http\Controllers\SyncLogController;
 use App\Http\Controllers\PerfilesController;
 use App\Models\Perfiles;
-
+Route::get('/compania/{empresas}', [CompaniaController::class, 'getEmpresas']);
+Route::get('/empresas', [EmpresaController::class, 'index']);
+Route::get('/empresas/{empresa}', [EmpresaController::class, 'show']);
+Route::post('/empresas', [EmpresaController::class, 'create']);
+Route::put('/empresas/{empresa}', [EmpresaController::class, 'update']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/sync-plaza-reproceso', [PlazaController::class, 'syncReproceso']);
@@ -130,4 +134,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/perfiles', [PerfilesController::class, 'create']);
     Route::put('/perfiles/{perfiles}', [PerfilesController::class, 'update']);
     Route::delete('/perfiles/{perfiles}', [PerfilesController::class, 'destroy' ]);
+
+    //ruta para obtener la empresa de una compañia 
+
+  
 });

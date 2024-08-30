@@ -17,7 +17,8 @@ class PlazaController extends Controller
     public function index()
     {
         return response()->json(
-            Plaza::select("plazas.id","plazas.nombre","empresas.razon_social")
+
+            Plaza::select("plazas.id","plazas.nombre","empresas.razon_social", "empresas.id as company_id", "empresas.razon_social as company_name",)
                     ->join("empresas","empresas.id","plazas.company_id")
                     ->get()
             ,200);
