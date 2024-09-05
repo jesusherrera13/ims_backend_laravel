@@ -9,24 +9,35 @@ use Illuminate\Support\Facades\DB;
 class PacienteController extends Controller
 {
     public function index()
-    {
-        $query = DB::table("pacientes as paciente")
-            ->leftJoin("system_religiones as religion", "religion.id", "religion_id")
-            ->select(
-                "paciente.id",
-                "paciente.nombre",
-                "paciente.apellido1",
-                "paciente.apellido2",
-                "religion.nombre as nombre_religion",
-                "paciente.f_nacimiento",
-                "paciente.domicilio",
-                "paciente.foto_perfil"
-            );
+{
+    $pacientes = Paciente::with('religion')
+        ->select(
+            'id',
+            'nombre',
+            'apellido1',
+            'apellido2',
+            'f_nacimiento',
+            'domicilio',
+            'foto_perfil',
+            'religion_id'
+        )
+        ->get()
+        ->map(function($paciente) {
+            return [
+                'id' => $paciente->id,
+                'nombre' => $paciente->nombre,
+                'apellido1' => $paciente->apellido1,
+                'apellido2' => $paciente->apellido2,
+                'f_nacimiento' => $paciente->f_nacimiento,
+                'domicilio' => $paciente->domicilio,
+                'foto_perfil' => $paciente->foto_perfil,
+                'nombre_religion' => $paciente->religion->nombre ?? null,
+            ];
+        });
 
-        $response = $query->get();
+    return response()->json($pacientes, 200);
+}
 
-        return response()->json($response, 200);
-    }
 
     public function create(Request $request)
     {

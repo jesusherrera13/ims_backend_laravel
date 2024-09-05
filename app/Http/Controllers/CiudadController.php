@@ -8,9 +8,23 @@ use Illuminate\Http\Request;
 class CiudadController extends Controller
 {
     public function index()
-    {
-        return response()->json(Ciudad::all(), 200);
-    }
+{
+    $ciudades = Ciudad::with('municipio')
+        ->select('id', 'nombre', 'municipio_id')
+        ->get()
+        ->map(function($ciudad) {
+            return [
+                'id' => $ciudad->id,
+                'nombre' => $ciudad->nombre,
+                'municipio_id' => $ciudad->municipio_id,
+                'nombre_municipio' => $ciudad->municipio->nombre ?? null,  // Nombre del municipio
+            ];
+        });
+
+    return response()->json($ciudades, 200);
+}
+
+
 
     public function create(Request $request)
     {
