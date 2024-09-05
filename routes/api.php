@@ -107,28 +107,28 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/religion', [ReligionController::class, 'create']);
     Route::put('/religion/{religion}', [ReligionController::class, 'update']);
     Route::post('/religion/{religion}', [ReligionController::class, 'update']);
-    // Route::delete('/plazas/{plaza}', [PlazaController::class,'destroy']);
+    Route::delete('/religion/{religion}', [ReligionController::class,'destroy']);
 
     Route::get('/paciente', [PacienteController::class, 'index']);
     Route::get('/paciente/{paciente}', [PacienteController::class, 'show']);
     Route::post('/paciente', [PacienteController::class, 'create']);
     Route::put('/paciente/{paciente}', [PacienteController::class, 'update']);
     Route::post('/paciente/{paciente}', [PacienteController::class, 'update']);
-    // Route::delete('/plazas/{plaza}', [PlazaController::class,'destroy']);
+    Route::delete('/paciente/{paciente}', [PacienteController::class,'destroy']);
 
     Route::get('/especialidad', [EspecialidadMedicaController::class, 'index']);
     Route::get('/especialidad/{especialidad}', [EspecialidadMedicaController::class, 'show']);
     Route::post('/especialidad', [EspecialidadMedicaController::class, 'create']);
     Route::put('/especialidad/{especialidad}', [EspecialidadMedicaController::class, 'update']);
     Route::post('/especialidad/{especialidad}', [EspecialidadMedicaController::class, 'update']);
-    // Route::delete('/especialidad/{especialidad}', [EspecialidadMedicaController::class,'destroy']);
+    Route::delete('/especialidad/{especialidad}', [EspecialidadMedicaController::class,'destroy']);
 
     Route::get('/medico', [MedicoController::class, 'index']);
     Route::get('/medico/{medico}', [MedicoController::class, 'show']);
     Route::post('/medico', [MedicoController::class, 'create']);
     Route::put('/medico/{medico}', [MedicoController::class, 'update']);
     Route::post('/medico/{medico}', [MedicoController::class, 'update']);
-    // Route::delete('/medico/{medico}', [MedicoController::class,'destroy']);
+    Route::delete('/medico/{medico}', [MedicoController::class,'destroy']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
 
