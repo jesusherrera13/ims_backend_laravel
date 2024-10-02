@@ -102,104 +102,22 @@ class AuthController extends Controller
     }
 
     public function userModules(Request $request) {
-        /*
-         select id,nombre,route,icon,orden,parent_id
-        from ims.system_modulos
-        where parent_id is null or parent_id=0
-        order by orden;
-         */
 
         $data = [];
 
         if($request['user_id'] == 1) {
 
             $query = DB::table("system_modulos")
-                        ->select("id","nombre","route","icon","orden","parent_id")
-                        ->whereNull("parent_id")
-                        ->orderBy("orden");
-    
-            $tmp = $query->get();
-    
-            foreach($tmp as $k => $row) {
-    
-                $query = DB::table("system_modulos")
-                            ->select("id","nombre","route","icon","orden","parent_id")
-                            ->where("parent_id", $row->id)
-                            ->orderBy("orden");
-    
-                $tmp2 = $query->get();
-    
-                foreach($tmp2 as $k2 => $row2) {
-    
-                    if(!isset($row->items)) $row->items = [];
-    
-                    $query = DB::table("system_modulos")
-                                ->select("id","nombre","route","icon","orden","parent_id")
-                                ->where("parent_id", $row2->id)
-                                ->orderBy("orden");
-        
-                    $tmp3 = $query->get();
-        
-                    foreach($tmp3 as $k3 => $row3) {
-        
-                        if(!isset($row2->items)) $row2->items = [];
-        
-                        $row2->items[] = $row3;
-                    }
-    
-                    $row->items[] = $row2;
-                }
-    
-                $data[] = $row;
-            }
+                        ->select("id","nombre","route","icon","orden","parent_id");
         }
         else {
             $query = DB::table("system_modulos")
                         ->select("system_modulos.id","system_modulos.nombre","system_modulos.route","system_modulos.icon","system_modulos.orden","system_modulos.parent_id")
                         ->join("user_modules","user_modules.modulo_id","system_modulos.id")
-                        ->whereNull("system_modulos.parent_id")
-                        ->where("user_modules.user_id", $request['user_id'])
-                        ->orderBy("system_modulos.orden");
-    
-            $tmp = $query->get();
-    
-            foreach($tmp as $k => $row) {
-    
-                $query = DB::table("system_modulos")
-                            ->select("system_modulos.id","system_modulos.nombre","system_modulos.route","system_modulos.icon","system_modulos.orden","system_modulos.parent_id")
-                            ->join("user_modules","user_modules.modulo_id","system_modulos.id")
-                            ->where("system_modulos.parent_id", $row->id)
-                            ->where("user_modules.user_id", $request['user_id'])
-                            ->orderBy("system_modulos.orden");
-    
-                $tmp2 = $query->get();
-    
-                foreach($tmp2 as $k2 => $row2) {
-    
-                    if(!isset($row->items)) $row->items = [];
-    
-                    $query = DB::table("system_modulos")
-                                ->select("system_modulos.id","system_modulos.nombre","system_modulos.route","system_modulos.icon","system_modulos.orden","system_modulos.parent_id")
-                                ->join("user_modules","user_modules.modulo_id","system_modulos.id")
-                                ->where("system_modulos.parent_id", $row2->id)
-                                ->where("user_modules.user_id", $request['user_id'])
-                                ->orderBy("system_modulos.orden");
-        
-                    $tmp3 = $query->get();
-        
-                    foreach($tmp3 as $k3 => $row3) {
-        
-                        if(!isset($row2->items)) $row2->items = [];
-        
-                        $row2->items[] = $row3;
-                    }
-    
-                    $row->items[] = $row2;
-                }
-    
-                $data[] = $row;
-            }
+                        ->where("user_modules.user_id", $request['user_id']);
         }
+
+        $data = $query->get();
 
         return response()->json([
             'data' => $data,
