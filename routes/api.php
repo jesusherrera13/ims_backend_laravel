@@ -28,6 +28,7 @@ use App\Http\Controllers\SyncLogController;
 use App\Http\Controllers\PerfilesController;
 use App\Models\Perfiles;
 use App\Http\Controllers\MedicamentosController;
+use App\Http\Controllers\MetodosPController;
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
@@ -137,4 +138,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/medicamentos', [MedicamentosController::class, 'create']);
     Route::put('/medicamentos/{medicamentos}', [MedicamentosController::class, 'update']);
     Route::delete('/medicamentos/{medicamentos}', [MedicamentosController::class, 'destroy' ]);
+
+    Route::get('/metodoPagos', [MetodosPController::class, 'index']);
+    Route::get('/metodoPagos/{metodoPagos}', [MetodosPController::class, 'show']);
+    Route::post('/metodoPagos', [MetodosPController::class, 'create']);
+    Route::put('/metodoPagos/{metodoPagos}', [MetodosPController::class, 'update']);
+    Route::delete('/metodoPagos/{metodoPagos}', [MetodosPController::class, 'destroy' ]);
 });
