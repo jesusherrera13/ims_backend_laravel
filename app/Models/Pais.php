@@ -13,7 +13,10 @@ class Pais extends Model
 
     //nombre
     protected $fillable = [
-        'nombre'
+        'nombre',
+        'codigo_iso_alfa2',
+        'codigo_iso_alfa3',
+        'codigo_iso_numerico'
     ];
 
     public function estados()

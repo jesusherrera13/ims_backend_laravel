@@ -5,14 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Religion extends Model
+class Perfiles extends Model
 {
     use HasFactory;
+    protected $table = "perfiles";
 
-    protected $table = 'system_religiones';
-
-    //nombre
     protected $fillable = [
-        'nombre'
+        'nombre',
     ];
 }

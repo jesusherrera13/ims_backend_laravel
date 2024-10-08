@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 
 use App\Models\User;
+use App\Models\Perfiles;
 
 
 
@@ -30,13 +31,13 @@ class DatabaseSeeder extends Seeder
         
         User::factory()->create([
             'name' => 'Doctor',
-            'email' => 'pmo@gmail.com',
+            'email' => 'doctor@gmail.com',
             'password' => '$2y$12$92oHkBPmFAhEJ2PdkvhU6Od4QM3zme52DuedSFdWIEysJzOPlQYTq'
         ]);
 
         User::factory()->create([
-            'name' => 'Servidor',
-            'email' => 'ceo@gmail.com',
+            'name' => 'Secretaria',
+            'email' => 'secretaria@gmail.com',
             'password' => '$2y$12$92oHkBPmFAhEJ2PdkvhU6Od4QM3zme52DuedSFdWIEysJzOPlQYTq'
         ]);
 
@@ -55,6 +56,7 @@ class DatabaseSeeder extends Seeder
                         'nombre' => 'Analythical',
                         'route' => '/',
                     ],
+                    /*
                     [
                         'nombre' => 'Classic',
                         'route' => '/dashboards/classic',
@@ -75,6 +77,7 @@ class DatabaseSeeder extends Seeder
                         'nombre' => 'Modern',
                         'route' => '/dashboards/modern',
                     ]
+                    */
                 ],
             ],
             [
@@ -143,6 +146,10 @@ class DatabaseSeeder extends Seeder
                     [
                         'nombre' => 'Plazas',
                         'route' => '/plazas'
+                    ],
+                    [
+                        'nombre' => 'Medicamentos',
+                        'route' => '/medicamentos'
                     ],
                 ],
             ]
