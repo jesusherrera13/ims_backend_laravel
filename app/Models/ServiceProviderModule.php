@@ -11,7 +11,7 @@ class ServiceProviderModule extends Model
 {
     use HasFactory, SoftDeletes;
     protected $table = 'service_providers_modules';
-    protected $fillable = ['name','service_provider_id'];
+    protected $fillable = ['name', 'service_provider_id'];
 
     public function modules(): BelongsTo
     {

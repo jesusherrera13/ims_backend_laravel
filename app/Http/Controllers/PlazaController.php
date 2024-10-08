@@ -17,8 +17,9 @@ class PlazaController extends Controller
     public function index()
     {
         return response()->json(
-            Plaza::select("plazas.id","plazas.nombre","empresas.razon_social")
-                    ->join("empresas","empresas.id","plazas.empresa_id")
+
+            Plaza::select("plazas.id","plazas.nombre","empresas.razon_social", "empresas.id as company_id", "empresas.razon_social as company_name",)
+                    ->join("empresas","empresas.id","plazas.company_id")
                     ->get()
             ,200);
     }
@@ -30,7 +31,7 @@ class PlazaController extends Controller
         $fields = $request->validate([
             'nombre' => 'required|string',
             'created_by' => 'nullable|integer',
-            'empresa_id' => 'required|integer'
+            'company_id' => 'required|integer'
       
 
         ]);
@@ -38,7 +39,7 @@ class PlazaController extends Controller
         $plaza = Plaza::create([
             'nombre' => $fields['nombre'],
             'created_by' => $fields['created_by'],
-            'empresa_id' => $fields['empresa_id']
+            'company_id' => $fields['company_id']
         
         
         ]);
@@ -68,7 +69,7 @@ class PlazaController extends Controller
         $fields = $request->validate([
             'nombre' => 'required|string',
             'created_by' => 'nullable|integer',
-            'empresa_id' => 'required|integer'
+            'company_id' => 'required|integer'
      
             
         ]);

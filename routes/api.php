@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\EspecialidadMedicaController;
+use App\Http\Controllers\MedicoController;
+use App\Http\Controllers\PacienteController;
+use App\Http\Controllers\ReligionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,7 +31,13 @@ use App\Http\Controllers\FortiaController;
 use App\Http\Controllers\SyncLogController;
 use App\Http\Controllers\PerfilesController;
 use App\Models\Perfiles;
-
+use App\Http\Controllers\MedicamentosController;
+use App\Http\Controllers\MetodosPController;
+Route::get('/compania/{empresas}', [CompaniaController::class, 'getEmpresas']);
+Route::get('/empresas', [EmpresaController::class, 'index']);
+Route::get('/empresas/{empresa}', [EmpresaController::class, 'show']);
+Route::post('/empresas', [EmpresaController::class, 'create']);
+Route::put('/empresas/{empresa}', [EmpresaController::class, 'update']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/sync-plaza-reproceso', [PlazaController::class, 'syncReproceso']);
@@ -63,13 +73,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/empresas', [EmpresaController::class, 'index']);
     Route::get('/empresas/{empresa}', [EmpresaController::class, 'show']);
     Route::post('/empresas', [EmpresaController::class, 'create']);
-    Route::post('/empresas/{empresa}', [EmpresaController::class, 'update']);
+    Route::put('/empresas/{empresa}', [EmpresaController::class, 'update']);
     // Route::delete('/empresas/{empresa}', [EmpresaController::class,'destroy']);
 
     Route::get('/plazas', [PlazaController::class, 'index']);
     Route::get('/plazas/{plaza}', [PlazaController::class, 'show']);
     Route::post('/plazas', [PlazaController::class, 'create']);
-    Route::post('/plazas/{plaza}', [PlazaController::class, 'update']);
+    Route::put('/plazas/{plaza}', [PlazaController::class, 'update']);
     // Route::delete('/plazas/{plaza}', [PlazaController::class,'destroy']);
 
     Route::get('/pais', [PaisController::class, 'index']);
@@ -99,6 +109,34 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/ciudad/{ciudad}', [CiudadController::class, 'update']);
     Route::put('/ciudad/{ciudad}', [CiudadController::class, 'update']);
     Route::delete('/ciudad/{ciudad}', [CiudadController::class, 'destroy']);
+
+    Route::get('/religion', [ReligionController::class, 'index']);
+    Route::get('/religion/{religion}', [ReligionController::class, 'show']);
+    Route::post('/religion', [ReligionController::class, 'create']);
+    Route::put('/religion/{religion}', [ReligionController::class, 'update']);
+    Route::post('/religion/{religion}', [ReligionController::class, 'update']);
+    Route::delete('/religion/{religion}', [ReligionController::class,'destroy']);
+
+    Route::get('/paciente', [PacienteController::class, 'index']);
+    Route::get('/paciente/{paciente}', [PacienteController::class, 'show']);
+    Route::post('/paciente', [PacienteController::class, 'create']);
+    Route::put('/paciente/{paciente}', [PacienteController::class, 'update']);
+    Route::post('/paciente/{paciente}', [PacienteController::class, 'update']);
+    Route::delete('/paciente/{paciente}', [PacienteController::class,'destroy']);
+
+    Route::get('/especialidad', [EspecialidadMedicaController::class, 'index']);
+    Route::get('/especialidad/{especialidad}', [EspecialidadMedicaController::class, 'show']);
+    Route::post('/especialidad', [EspecialidadMedicaController::class, 'create']);
+    Route::put('/especialidad/{especialidad}', [EspecialidadMedicaController::class, 'update']);
+    Route::post('/especialidad/{especialidad}', [EspecialidadMedicaController::class, 'update']);
+    Route::delete('/especialidad/{especialidad}', [EspecialidadMedicaController::class,'destroy']);
+
+    Route::get('/medico', [MedicoController::class, 'index']);
+    Route::get('/medico/{medico}', [MedicoController::class, 'show']);
+    Route::post('/medico', [MedicoController::class, 'create']);
+    Route::put('/medico/{medico}', [MedicoController::class, 'update']);
+    Route::post('/medico/{medico}', [MedicoController::class, 'update']);
+    Route::delete('/medico/{medico}', [MedicoController::class,'destroy']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
 
@@ -130,4 +168,20 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/perfiles', [PerfilesController::class, 'create']);
     Route::put('/perfiles/{perfiles}', [PerfilesController::class, 'update']);
     Route::delete('/perfiles/{perfiles}', [PerfilesController::class, 'destroy' ]);
+
+    Route::get('/medicamentos', [MedicamentosController::class, 'index']);
+    Route::get('/medicamentos/{medicamentos}', [MedicamentosController::class, 'show']);
+    Route::post('/medicamentos', [MedicamentosController::class, 'create']);
+    Route::put('/medicamentos/{medicamentos}', [MedicamentosController::class, 'update']);
+    Route::delete('/medicamentos/{medicamentos}', [MedicamentosController::class, 'destroy' ]);
+
+    Route::get('/metodoPagos', [MetodosPController::class, 'index']);
+    Route::get('/metodoPagos/{metodoPagos}', [MetodosPController::class, 'show']);
+    Route::post('/metodoPagos', [MetodosPController::class, 'create']);
+    Route::put('/metodoPagos/{metodoPagos}', [MetodosPController::class, 'update']);
+    Route::delete('/metodoPagos/{metodoPagos}', [MetodosPController::class, 'destroy' ]);
+
+    //ruta para obtener la empresa de una compañia 
+
+  
 });

@@ -57,10 +57,10 @@ class UserController extends Controller
 
     public function update(Request $request, User $user) {
         $fields = $request->validate([
-            'name' => 'required|string',
             'rol_id' => 'nullable',
-            //'password' => 'required|string|confirmed',
         ]);
+
+        if($request['verificar']) $fields['email_verified_at'] = date('Y-m-d h:i:s');
 
         $user->update($fields);
 
@@ -69,7 +69,7 @@ class UserController extends Controller
             // 'token' => $token
         ];
 
-        return response()->json($response, 201);
+        return response()->json($response, 200);
     }
 
 

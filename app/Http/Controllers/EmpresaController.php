@@ -25,33 +25,35 @@ class EmpresaController extends Controller
         $fields = $request->validate([
             'razon_social' => 'required|string',
             'nombre_comercial' => 'required|string',
-            'pais_id' => 'nullable|integer',
+            'rfc' => 'required|string',
+        'pais_id' => 'nullable|integer|exists:paises,id',
             'estado_id' => 'nullable|integer',
             'municipio_id' => 'nullable|integer',
             'codigo_postal' => 'nullable|integer', 
             'ciudad_id' => 'nullable|integer',
             'colonia_id' => 'nullable|integer',
-            'regimend_id' => 'nullable|integer',
-            'calle' => 'required|string',
-            'numero_exterior' => 'required|string',
-            'numero_interior' => 'required|string',
-            'registro_patronal' => 'required|string',
+            'regimen_id' => 'nullable|integer',
+            'calle' => 'nullable|string',
+            'numero_exterior' => 'nullable|string',
+            'numero_interior' => 'nullable|string',
+            'registro_patronal' => 'nullable|string',
         ]);
 
         $empresa = Empresa::create([
             'razon_social' => $fields['razon_social'],
             'nombre_comercial' => $fields['nombre_comercial'],
-            'pais_id' => $fields['pais_id'] ?? null,
+            'rfc' => $fields['rfc'],
+            'pais_id' => isset($fields['pais_id']) ? $fields['pais_id'] : null,
             'estado_id' => $fields['estado_id'] ?? null,
             'municipio_id' => $fields['municipio_id'] ?? null,
             'ciudad_id' => $fields['ciudad_id'] ?? null,
             'colonia_id' => $fields['colonia_id'] ?? null,
             'codigo_postal' => $fields['codigo_postal'] ?? null,
-            'calle' => $fields['calle'],
-            'numero_exterior' => $fields['numero_exterior'],
-            'numero_interior' => $fields['numero_interior'],
-            'registro_patronal' => $fields['registro_patronal'],   
-             'regimen_id' => $fields['regimend_id'] ?? null,
+            'calle' => $fields['calle'] ?? null,
+            'numero_exterior' => $fields['numero_exterior'] ?? null,
+            'numero_interior' => $fields['numero_interior'] ?? null,
+            'registro_patronal' => $fields['registro_patronal'] ?? null,   
+             'regimen_id' => $fields['regimen_id'] ?? null,
            
 
         
@@ -82,18 +84,19 @@ class EmpresaController extends Controller
         $fields = $request->validate([
             'razon_social' => 'required|string',
             'nombre_comercial' => 'required|string',
+            'rfc' => 'required|string',
             'pais_id' => 'nullable|integer',
             'estado_id' => 'nullable|integer',
             'municipio_id' => 'nullable|integer',
             'ciudad_id' => 'nullable|integer',
             'colonia_id' => 'nullable|integer',
             'codigo_postal' => 'nullable|integer',
-            'calle' => 'required|string',
-            'numero_exterior' => 'required|string',
-            'numero_interior' => 'required|string',
-            'registro_patronal' => 'required|string',
+            'calle' => 'nullable|string',
+            'numero_exterior' => 'nullable|string',
+            'numero_interior' => 'nullable|string',
+            'registro_patronal' => 'nullable|string',
             'regimen_id' => 'nullable|integer',
-          
+    
             
             
         ]);
