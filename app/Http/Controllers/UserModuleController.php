@@ -76,9 +76,6 @@ class UserModuleController extends Controller
         
         UserModule::where('user_id', $request['user_id'])->delete();
 
-        // print_r($request['user_modules']);
-        // echo "user: ".auth()->user()->id;
-
         foreach($request['user_modules'] as $modulo_id) {
             
             $params = [

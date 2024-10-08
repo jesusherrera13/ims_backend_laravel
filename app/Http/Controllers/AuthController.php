@@ -13,18 +13,11 @@ class AuthController extends Controller
 {
     public function register(Request $request) {
 
-        /* $employee = Employee::select("id",DB::raw("UCASE(LCASE(concat(employee_name,' ',employee_last_name,if(length(employee_second_last_name),concat(' ',employee_second_last_name),'')))) as name"))
-                        ->where("employee_id", $request['employee_id'])
-                        ->where('rfc', $request['rfc'])->first(); */
-
-        $employee = Employee::select("id",DB::raw("concat(employee_name,' ',employee_last_name,' ',employee_second_last_name) as name"))
-                        ->where("employee_id", $request['employee_id'])
-                        ->where('rfc', $request['rfc'])->first();
-
-        if(!$employee) return response()->json(['success' => false, 'message' => 'El empleado no existe'], 200);
-
         // return response()->json(['password' => Str::random(8)], 200);
-        $request['name'] = ucwords(strtolower($employee->name));
+        $user = User::where('email', $request['email'])->first();
+        if($user) return response()->json(['success' => false, 'message' => 'El email `'.$request['email'].'` ya está en uso'], 200);
+
+        $request['name'] = ucwords(mb_strtolower($request['email']));
         
         // GENERACIÓN DE PASSWORD RANDOM
         // $request['password'] = $request['password_confirmation'] = Str::random(8);
@@ -43,7 +36,7 @@ class AuthController extends Controller
 
         $response = [
             'user' => $user,
-            'password' =>$request['password']
+            // 'password' =>$request['password']
         ];
 
         return response($response, 201);
@@ -55,6 +48,24 @@ class AuthController extends Controller
             'email' => 'required|string',
             'password' => 'required|string',
         ]);
+
+        $user = User::where('email', $fields['email'])->first();
+        // $user->tokens()->delete();
+
+        if(!$user || !Hash::check($fields['password'], $user->password)) {
+            
+            return response([
+                'success' => false,
+                'message' => 'Error en usuario y/contraseña'
+            ], 200);
+        }
+
+        if($user && !$user->email_verified_at) {
+            return response([
+                'success' => false,
+                'message' => 'El usuario no ha sido verificado por el Administrador'
+            ], 200);
+        }
         
         $user = User::where('email', $fields['email'])->whereNotNull('email_verified_at')->first();
         // $user->tokens()->delete();
@@ -73,8 +84,8 @@ class AuthController extends Controller
         unset($user->updated_at);
 
         $response = [
+            'success' => true,
             'user' => $user,
-            'token' => $token,
             'token' => $token,
         ];
 
@@ -91,104 +102,22 @@ class AuthController extends Controller
     }
 
     public function userModules(Request $request) {
-        /*
-         select id,nombre,route,icon,orden,parent_id
-        from ims.system_modulos
-        where parent_id is null or parent_id=0
-        order by orden;
-         */
 
         $data = [];
 
         if($request['user_id'] == 1) {
 
             $query = DB::table("system_modulos")
-                        ->select("id","nombre","route","icon","orden","parent_id")
-                        ->whereNull("parent_id")
-                        ->orderBy("orden");
-    
-            $tmp = $query->get();
-    
-            foreach($tmp as $k => $row) {
-    
-                $query = DB::table("system_modulos")
-                            ->select("id","nombre","route","icon","orden","parent_id")
-                            ->where("parent_id", $row->id)
-                            ->orderBy("orden");
-    
-                $tmp2 = $query->get();
-    
-                foreach($tmp2 as $k2 => $row2) {
-    
-                    if(!isset($row->items)) $row->items = [];
-    
-                    $query = DB::table("system_modulos")
-                                ->select("id","nombre","route","icon","orden","parent_id")
-                                ->where("parent_id", $row2->id)
-                                ->orderBy("orden");
-        
-                    $tmp3 = $query->get();
-        
-                    foreach($tmp3 as $k3 => $row3) {
-        
-                        if(!isset($row2->items)) $row2->items = [];
-        
-                        $row2->items[] = $row3;
-                    }
-    
-                    $row->items[] = $row2;
-                }
-    
-                $data[] = $row;
-            }
+                        ->select("id","nombre","route","icon","orden","parent_id");
         }
         else {
             $query = DB::table("system_modulos")
                         ->select("system_modulos.id","system_modulos.nombre","system_modulos.route","system_modulos.icon","system_modulos.orden","system_modulos.parent_id")
                         ->join("user_modules","user_modules.modulo_id","system_modulos.id")
-                        ->whereNull("system_modulos.parent_id")
-                        ->where("user_modules.user_id", $request['user_id'])
-                        ->orderBy("system_modulos.orden");
-    
-            $tmp = $query->get();
-    
-            foreach($tmp as $k => $row) {
-    
-                $query = DB::table("system_modulos")
-                            ->select("system_modulos.id","system_modulos.nombre","system_modulos.route","system_modulos.icon","system_modulos.orden","system_modulos.parent_id")
-                            ->join("user_modules","user_modules.modulo_id","system_modulos.id")
-                            ->where("system_modulos.parent_id", $row->id)
-                            ->where("user_modules.user_id", $request['user_id'])
-                            ->orderBy("system_modulos.orden");
-    
-                $tmp2 = $query->get();
-    
-                foreach($tmp2 as $k2 => $row2) {
-    
-                    if(!isset($row->items)) $row->items = [];
-    
-                    $query = DB::table("system_modulos")
-                                ->select("system_modulos.id","system_modulos.nombre","system_modulos.route","system_modulos.icon","system_modulos.orden","system_modulos.parent_id")
-                                ->join("user_modules","user_modules.modulo_id","system_modulos.id")
-                                ->where("system_modulos.parent_id", $row2->id)
-                                ->where("user_modules.user_id", $request['user_id'])
-                                ->orderBy("system_modulos.orden");
-        
-                    $tmp3 = $query->get();
-        
-                    foreach($tmp3 as $k3 => $row3) {
-        
-                        if(!isset($row2->items)) $row2->items = [];
-        
-                        $row2->items[] = $row3;
-                    }
-    
-                    $row->items[] = $row2;
-                }
-    
-                $data[] = $row;
-            }
+                        ->where("user_modules.user_id", $request['user_id']);
         }
+
+        $data = $query->get();
 
         return response()->json([
             'data' => $data,
