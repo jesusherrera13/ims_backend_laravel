@@ -151,6 +151,26 @@ class DatabaseSeeder extends Seeder
                         'nombre' => 'Medicamentos',
                         'route' => '/medicamentos'
                     ],
+                    [
+                        'nombre' => 'Método de Pago',
+                        'route' => '/metodo-de-pago'
+                    ],
+                    [
+                        'nombre' => 'Religiones',
+                        'route' => '/religiones'
+                    ],
+                    [
+                        'nombre' => 'Paciente',
+                        'route' => '/pacientes'
+                    ],
+                    [
+                        'nombre' => 'Especialidad',
+                        'route' => '/especialidad'
+                    ],
+                    [
+                        'nombre' => 'Médicos',
+                        'route' => '/medicos'
+                    ],
                 ],
             ]
         ];
