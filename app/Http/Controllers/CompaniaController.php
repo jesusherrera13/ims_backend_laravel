@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Compania;
 use Illuminate\Http\Request;
 use App\Http\Requests\CompaniaCreateRequest;
+use App\Models\Empresa;
 
 class CompaniaController extends Controller
 {
@@ -65,5 +66,15 @@ class CompaniaController extends Controller
     public function destroy(Compania $compania)
     {
         //
+    }
+
+    public function getEmpresas(Empresa $empresa ) // se recibe un objeto de tipo Pais como parámetro  
+    {
+        if (!$empresa) {
+            return response()->json(['error' => 'empresa no encontrado'], 404);
+        }
+    
+        $empresas = $empresa->empresas; // se asignan los estados a la variable $empresas y se retornan en formato json 
+        return response()->json($empresas, 200);
     }
 }

@@ -56,6 +56,7 @@ class DatabaseSeeder extends Seeder
                         'nombre' => 'Analythical',
                         'route' => '/',
                     ],
+                    /*
                     [
                         'nombre' => 'Classic',
                         'route' => '/dashboards/classic',
@@ -76,6 +77,7 @@ class DatabaseSeeder extends Seeder
                         'nombre' => 'Modern',
                         'route' => '/dashboards/modern',
                     ]
+                    */
                 ],
             ],
             [
@@ -144,6 +146,10 @@ class DatabaseSeeder extends Seeder
                     [
                         'nombre' => 'Plazas',
                         'route' => '/plazas'
+                    ],
+                    [
+                        'nombre' => 'Medicamentos',
+                        'route' => '/medicamentos'
                     ],
                 ],
             ]

@@ -33,7 +33,11 @@ use App\Http\Controllers\PerfilesController;
 use App\Models\Perfiles;
 use App\Http\Controllers\MedicamentosController;
 use App\Http\Controllers\MetodosPController;
-
+Route::get('/compania/{empresas}', [CompaniaController::class, 'getEmpresas']);
+Route::get('/empresas', [EmpresaController::class, 'index']);
+Route::get('/empresas/{empresa}', [EmpresaController::class, 'show']);
+Route::post('/empresas', [EmpresaController::class, 'create']);
+Route::put('/empresas/{empresa}', [EmpresaController::class, 'update']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/sync-plaza-reproceso', [PlazaController::class, 'syncReproceso']);
@@ -69,13 +73,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/empresas', [EmpresaController::class, 'index']);
     Route::get('/empresas/{empresa}', [EmpresaController::class, 'show']);
     Route::post('/empresas', [EmpresaController::class, 'create']);
-    Route::post('/empresas/{empresa}', [EmpresaController::class, 'update']);
+    Route::put('/empresas/{empresa}', [EmpresaController::class, 'update']);
     // Route::delete('/empresas/{empresa}', [EmpresaController::class,'destroy']);
 
     Route::get('/plazas', [PlazaController::class, 'index']);
     Route::get('/plazas/{plaza}', [PlazaController::class, 'show']);
     Route::post('/plazas', [PlazaController::class, 'create']);
-    Route::post('/plazas/{plaza}', [PlazaController::class, 'update']);
+    Route::put('/plazas/{plaza}', [PlazaController::class, 'update']);
     // Route::delete('/plazas/{plaza}', [PlazaController::class,'destroy']);
 
     Route::get('/pais', [PaisController::class, 'index']);
@@ -176,4 +180,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/metodoPagos', [MetodosPController::class, 'create']);
     Route::put('/metodoPagos/{metodoPagos}', [MetodosPController::class, 'update']);
     Route::delete('/metodoPagos/{metodoPagos}', [MetodosPController::class, 'destroy' ]);
+
+    //ruta para obtener la empresa de una compañia 
+
+  
 });
