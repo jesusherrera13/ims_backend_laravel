@@ -33,6 +33,10 @@ use App\Http\Controllers\PerfilesController;
 use App\Models\Perfiles;
 use App\Http\Controllers\MedicamentosController;
 use App\Http\Controllers\MetodosPController;
+use App\Http\Controllers\AppointmentController;
+
+
+
 Route::get('/compania/{empresas}', [CompaniaController::class, 'getEmpresas']);
 Route::get('/empresas', [EmpresaController::class, 'index']);
 Route::get('/empresas/{empresa}', [EmpresaController::class, 'show']);
@@ -183,5 +187,17 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //ruta para obtener la empresa de una compañia 
 
-  
+    //ruta para obtener las citas
+    Route::get('/cita', [AppointmentController::class, 'index']);
+    //ruta para crear una cita
+    Route::post('/cita', [AppointmentController::class, 'create']);
+    //ruta para actualizar una cita
+    Route::put('/cita/{appointment}', [AppointmentController::class, 'update']);
+    //ruta para obtener destruir una cita
+    Route::delete('/cita/{appointment}', [AppointmentController::class, 'destroy']);
+//ruta para obtener las especialidades de los medicos
+    Route::get('/medico/{medico}/especialidades', [MedicoController::class, 'getEspecialidadesMedicas']);
+
+    
+
 });

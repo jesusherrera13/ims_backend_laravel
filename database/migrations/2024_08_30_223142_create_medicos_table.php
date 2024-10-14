@@ -18,12 +18,12 @@ return new class extends Migration
             $table->string('direccion');
             $table->string('cp');
             // Claves foráneas
-            /*
-            $table->foreignId('ciudad_id')->nullable()->constrained('system_ciudades')->onDelete('set null');
+            
+      /*       $table->foreignId('ciudad_id')->nullable()->constrained('system_ciudades')->onDelete('set null');
             $table->foreignId('estado_id')->nullable()->constrained('system_estados')->onDelete('set null');
             $table->enum('genero', ['masculino', 'femenino', 'otro']);
-            $table->foreignId('especialidad_id')->constrained('system_especialidades_medicas')->onDelete('set null');
-            */
+            $table->foreignId('especialidad_id')->constrained('system_especialidades_medicas')->onDelete('set null'); //sirve para relacionar la tabla especialidades_medicas
+             */
             $table->timestamps();
         });
     }

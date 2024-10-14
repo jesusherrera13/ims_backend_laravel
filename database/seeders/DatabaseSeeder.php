@@ -171,6 +171,10 @@ class DatabaseSeeder extends Seeder
                         'nombre' => 'Médicos',
                         'route' => '/medicos'
                     ],
+                    [
+                        'nombre' => 'Citas',
+                        'route' => '/cita'
+                    ],
                 ],
             ]
         ];
