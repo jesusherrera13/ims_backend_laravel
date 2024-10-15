@@ -37,6 +37,7 @@ class AppointmentController extends Controller
                    'hour' => \Carbon\Carbon::createFromFormat('H:i:s', $appointment->hour)->format('H:i'),
                     'especialidad_name' => $appointment->especialidad->nombre ?? null,
                     'patient_name' => $appointment->patient->nombre ?? null,
+                    'patient_lastname' => $appointment->patient->apellido1 ?? null,
                     'medico_name' => $appointment->medico->nombre ?? null,
                 ];
             });
