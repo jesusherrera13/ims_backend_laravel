@@ -22,7 +22,7 @@ class MedicoController extends Controller
             'genero' => $medico->genero,
             'nombre_ciudad' => $medico->ciudad ? $medico->ciudad->nombre : null,
             'nombre_estado' => $medico->estado ? $medico->estado->nombre : null,
-            'nombre_especialidad' => $medico->especialidad ? $medico->especialidad->nombre : null,
+            'nombre_especialidad' => $medico->especialidad ? $medico->especialidad->nombre : null,// sirve para mostrar el nombre de la especialidad en la tabla de medicos 
         ];
     });
 

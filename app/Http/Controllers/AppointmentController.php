@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
+use App\Models\Patient;
+use App\Models\Medico;
+use App\Models\EspecialidadMedica;
 use App\Rules\TimeValidation;
 use Illuminate\Http\Request;
 
@@ -114,4 +117,16 @@ class AppointmentController extends Controller
         $appointment->delete();
         return response()->json('message: "Cita eliminada"', 200);
     }
+
+    public function getEspecialidadesMedicas(Medico $medico) // se recibe un objeto de tipo Pais como parámetro  
+    {
+        if (!$medico) { // si no se encuentra el país se retorna un mensaje de error
+            return response()->json(['error' => 'medico no encontrado'], 404);
+        }
+    
+        $especialidadMedicas = $medico->especialidadesMedicas; // se asignan los estados a la variable $estados y se retornan en formato json 
+        return response()->json($medico, 200);
+    }
 }
+
+
