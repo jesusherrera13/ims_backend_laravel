@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('patient_id')->references('id')->on('pacientes');
-            $table -> foreignId('doctor_id')->references('id')->on('medicos');
+            $table -> foreignId('medico_id')->references('id')->on('medicos');
+            $table -> foreignId('especialidad_id')->references('id')->on('system_especialidades_medicas');
             $table->dateTime('date');
             $table->time('hour');
 

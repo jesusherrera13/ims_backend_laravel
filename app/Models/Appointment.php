@@ -14,8 +14,28 @@ class Appointment extends Model
 
     protected $fillable = [
         'patient_id',
-        'doctor_id',
+        'medico_id',
+        'especialidad_id',
         'date',
         'hour'
     ];
+
+    public function patient()
+    {
+        return $this->belongsTo(Paciente::class);
+    }
+
+    /**
+     * Get the medico that owns the appointment.
+     */
+    public function medico()
+    {
+        return $this->belongsTo(Medico::class);
+    }
+
+    public function especialidad()
+    {
+        return $this->belongsTo(EspecialidadMedica::class);
+    }
+
 }

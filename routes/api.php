@@ -196,7 +196,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //ruta para obtener destruir una cita
     Route::delete('/cita/{appointment}', [AppointmentController::class, 'destroy']);
 //ruta para obtener las especialidades de los medicos
-    Route::get('/medico/{medico}/especialidades', [MedicoController::class, 'getEspecialidadesMedicas']);
+   // Route::get('/medico/{medico}/especialidades', [MedicoController::class, 'getEspecialidadesMedicas']);
 
     
 

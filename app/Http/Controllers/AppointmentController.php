@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
+use App\Rules\TimeValidation;
 use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
@@ -13,11 +14,12 @@ class AppointmentController extends Controller
     // si se quiere ver los datos de los pacientes y doctores en la tabla de citas
     public function index()
     {
-        $appointments = Appointment::with('patient', 'doctor')
+        $appointments = Appointment::with('patient', 'medico', 'especialidad')
             ->select(
                 'id',
                 'patient_id',
-                'doctor_id',
+                'medico_id',
+                'especialidad_id',
                 'date',
                 'hour'
             )
@@ -26,11 +28,13 @@ class AppointmentController extends Controller
                 return [
                     'id' => $appointment->id,
                     'patient_id' => $appointment->patient_id,
-                    'doctor_id' => $appointment->doctor_id,
+                    'medico_id' => $appointment->medico_id,
+                    'especialidad_id' => $appointment->especialidad_id,
                     'date' => $appointment->date,
                     'hour' => $appointment->hour,
-                    'patient' => $appointment->patient->nombre ?? null,
-                    'doctor' => $appointment->doctor->nombre ?? null,
+                    'especialidad_name' => $appointment->especialidad->nombre ?? null,
+                    'patient_name' => $appointment->patient->nombre ?? null,
+                    'medico_name' => $appointment->medico->nombre ?? null,
                 ];
             });
             return response()->json($appointments, 200);
@@ -42,14 +46,16 @@ class AppointmentController extends Controller
     {
          $fields = $request->validate([
             'patient_id' => 'required|integer',
-            'doctor_id' => 'required|integer',
+            'medico_id' => 'required|integer',
+            'especialidad_id' => 'required|integer',
             'date' => 'required|date',
-            'hour' => 'required|time',
+            'hour' => ['required',new TimeValidation],
         ]);
 
         $appointment = Appointment::create([
             'patient_id' => $fields['patient_id'],
-            'doctor_id' => $fields['doctor_id'],
+            'medico_id' => $fields['medico_id'],
+            'especialidad_id' => $fields['especialidad_id'],
             'date' => $fields['date'],
             'hour' => $fields['hour'],
         ]);
@@ -89,10 +95,16 @@ class AppointmentController extends Controller
     {
          $fields = $request->validate([
             'patient_id' => 'required|integer',
-            'doctor_id' => 'required|integer',
+            'medico_id' => 'required|integer',
+            'especialidad_id' => 'required|integer',
             'date' => 'required|date',
-            'hour' => 'required|time',      
-    ]);}
+            'hour' => ['required',new TimeValidation],    
+            
+    ]);
+     $appointment->update($fields);
+
+    return response()->json($appointment, 200);
+    }
 
     /**
      * Remove the specified resource from storage.
