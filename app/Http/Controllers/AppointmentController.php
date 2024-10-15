@@ -34,7 +34,7 @@ class AppointmentController extends Controller
                     'medico_id' => $appointment->medico_id,
                     'especialidad_id' => $appointment->especialidad_id,
                     'date' => $appointment->date,
-                    'hour' => $appointment->hour,
+                   'hour' => \Carbon\Carbon::createFromFormat('H:i:s', $appointment->hour)->format('H:i'),
                     'especialidad_name' => $appointment->especialidad->nombre ?? null,
                     'patient_name' => $appointment->patient->nombre ?? null,
                     'medico_name' => $appointment->medico->nombre ?? null,
@@ -52,7 +52,7 @@ class AppointmentController extends Controller
             'medico_id' => 'required|integer',
             'especialidad_id' => 'required|integer',
             'date' => 'required|date',
-            'hour' => ['required',new TimeValidation],
+            'hour' => ['required', new TimeValidation()],
         ]);
 
         $appointment = Appointment::create([
@@ -101,7 +101,7 @@ class AppointmentController extends Controller
             'medico_id' => 'required|integer',
             'especialidad_id' => 'required|integer',
             'date' => 'required|date',
-            'hour' => ['required',new TimeValidation],    
+            'hour' => ['required', new TimeValidation()],
             
     ]);
      $appointment->update($fields);

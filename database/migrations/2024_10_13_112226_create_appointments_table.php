@@ -16,10 +16,10 @@ return new class extends Migration
             $table->foreignId('patient_id')->references('id')->on('pacientes');
             $table -> foreignId('medico_id')->references('id')->on('medicos');
             $table -> foreignId('especialidad_id')->references('id')->on('system_especialidades_medicas');
-            $table->dateTime('date');
+            $table->date('date');
             $table->time('hour');
-
             $table->timestamps();
+
         });
 
         {

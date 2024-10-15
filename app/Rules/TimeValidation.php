@@ -3,30 +3,23 @@
 namespace App\Rules;
 
 use Closure;
-use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Contracts\Validation\InvokableRule;
 
-class TimeValidation implements Rule
+class TimeValidation implements InvokableRule
 {
     /**
-     * Determine if the validation rule passes.
+     * Determina si la regla de validación pasa.
      *
      * @param  string  $attribute
      * @param  mixed  $value
-     * @return bool
+     * @param  Closure $fail
+     * @return void
      */
-    public function passes($attribute, $value)
+    public function __invoke($attribute, $value, $fail)
     {
         // Validar que el valor sea una hora en formato HH:MM
-        return preg_match('/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/', $value);
-    }
-
-    /**
-     * Get the validation error message.
-     *
-     * @return string
-     */
-    public function message()
-    {
-        return 'El campo :attribute no es una hora válida.';
+        if (!preg_match('/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/', $value)) {
+            $fail('El campo :attribute no es una hora válida.');
+        }
     }
 }
