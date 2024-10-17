@@ -119,15 +119,69 @@ class AppointmentController extends Controller
         return response()->json('message: "Cita eliminada"', 200);
     }
 
-    public function getEspecialidadesMedicas(Medico $medico) // se recibe un objeto de tipo Pais como parámetro  
+    public function getEspecialidadesMedicas(Medico $medico) // se recibe un objeto de tipo Medico como parámetro  
     {
-        if (!$medico) { // si no se encuentra el país se retorna un mensaje de error
+        if (!$medico) { // si no se encuentra el medico se retorna un mensaje de error
             return response()->json(['error' => 'medico no encontrado'], 404);
         }
     
-        $especialidadMedicas = $medico->especialidadesMedicas; // se asignan los estados a la variable $estados y se retornan en formato json 
-        return response()->json($medico, 200);
+        $especialidadesMedicas = $medico->especialidadesMedicas; // se asignan las especialidades a la variable $especialidadesMedicas y se retornan en formato json 
+        return response()->json($especialidadesMedicas, 200);
     }
+
+    public function associateEspecialidadMedica(Request $request, Medico $medico)
+    {
+        $fields = $request->validate([
+            'especialidad_id' => 'required|integer|exists:especialidad_medicas,id',
+        ]);
+
+        $especialidad = EspecialidadMedica::find($fields['especialidad_id']);
+        if (!$especialidad) {
+            return response()->json(['error' => 'especialidad no encontrada'], 404);
+        }
+
+        $medico->especialidadesMedicas()->attach($especialidad);
+
+        return response()->json(['message' => 'Especialidad asociada correctamente'], 200);
+    }
+
+    public function getHorarios(Medico $medico, EspecialidadMedica $especialidad) // se recibe un objeto de tipo Pais como parámetro  
+    {
+        $especialidadMedica = $medico->especialidadesMedicas()->where('id', $especialidad->id)->first();
+        if (!$especialidadMedica) {
+            return response()->json(['error' => 'especialidad no encontrada para el medico'], 404);
+        }
+    
+        $horarios = $medico->horarios; // se asignan los horarios a la variable $horarios y se retornan en formato json
+        return response()->json($horarios, 200);
+    }
+
+
+    public function get_citas(Medico $medico, Especialidad $especialidad, Horario $horario)
+    {
+        // Lógica para obtener las citas de un médico con una especialidad y un horario
+    }
+
+    public function get_cita(Medico $medico, Especialidad $especialidad, Horario $horario, Cita $cita)
+    {
+        // Lógica para obtener una cita específica
+    }
+
+    public function create_cita(Request $request, Medico $medico, Especialidad $especialidad, Horario $horario)
+    {
+        // Lógica para crear una cita para un médico con una especialidad y un horario
+    }
+
+    public function update_cita(Request $request, Medico $medico, Especialidad $especialidad, Horario $horario, Cita $cita)
+    {
+        // Lógica para actualizar una cita para un médico con una especialidad y un horario
+    }
+
+    public function destroy_cita(Medico $medico, Especialidad $especialidad, Horario $horario, Cita $cita)
+    {
+        // Lógica para eliminar una cita para un médico con una especialidad y un horario
+    }
+
 }
 
 

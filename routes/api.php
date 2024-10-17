@@ -198,6 +198,17 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 //ruta para obtener las especialidades de los medicos
     Route::get('/cita/{medico}/especialidades', [AppointmentController::class, 'getEspecialidadesMedicas']);
 
-    
+Route::get('/cita/{medico}/especialidades/{especialidad}/horarios', [AppointmentController::class, 'getHorarios']); // ruta para obtener los horarios de un medico con una especialidad
+
+Route::get('/cita/{medico}/especialidades/{especialidad}/horarios/{horario}/citas', [AppointmentController::class, 'getCitas']); // ruta para obtener las citas de un medico con una especialidad y un horario 
+
+Route::get('/cita/{medico}/especialidades/{especialidad}/horarios/{horario}/citas/{cita}', [AppointmentController::class, 'getCita']); // ruta para obtener una cita de un medico con una especialidad y un horario
+
+Route::post('/cita/{medico}/especialidades/{especialidad}/horarios/{horario}/citas', [AppointmentController::class, 'createCita']); // ruta para crear una cita de un medico con una especialidad y un horario
+
+Route::put('/cita/{medico}/especialidades/{especialidad}/horarios/{horario}/citas/{cita}', [AppointmentController::class, 'updateCita']); // ruta para actualizar una cita de un medico con una especialidad y un horario
+
+Route::delete('/cita/{medico}/especialidades/{especialidad}/horarios/{horario}/citas/{cita}', [AppointmentController::class, 'destroyCita']); // ruta para eliminar una cita de un medico con una especialidad y un horario
+
 
 });
