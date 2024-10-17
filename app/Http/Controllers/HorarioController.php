@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Horario;
 use Illuminate\Http\Request;
+use App\Models\Medico;
+use App\Models\EspecialidadMedica;
+use App\Rules\TimeValidation;
+
 
 class HorarioController extends Controller
 {
@@ -19,65 +23,47 @@ class HorarioController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create( Request $request)
+    public function getHorarios(Medico $medico, EspecialidadMedica $especialidad)
+    {
+        $especialidadMedica = $medico->especialidadesMedicas()->where('id', $especialidad->id)->first();
+        if (!$especialidadMedica) {
+            return response()->json(['error' => 'especialidad no encontrada para el medico'], 404);
+        }
+    
+        $horarios = $medico->horarios; // se asignan los horarios a la variable $horarios y se retornan en formato json
+        return response()->json($horarios, 200);
+    }
+
+    public function createHorario(Request $request, Medico $medico, EspecialidadMedica $especialidad)
     {
         $fields = $request->validate([
-        'start_time' => 'required|date',
-        'end_time' => 'required|date',
-    ]);
+            'start_time' => ['required', new TimeValidation()],
+            'end_time' => ['required', new TimeValidation()],
+        ]);
 
-    $horario = Horario::create($fields);
+        $horario = Horario::create([
+            'medico_id' => $medico->id,
+            'especialidad_id' => $especialidad->id,
+            'start_time' => $fields['start_time'],
+            'end_time' => $fields['end_time'],
+        ]);
 
-    return response()->json($horario, 201);
+        return response()->json($horario, 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Horario $horario)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Horario $horario)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Horario $horario)
+    public function updateHorario(Request $request, Horario $horario)
     {
         $fields = $request->validate([
-            'start_time' => 'required|date' ,
-            'end_time' => 'required|date',
-            
-
+            'start_time' => ['required', new TimeValidation()],
+            'end_time' => ['required', new TimeValidation()],
         ]);
 
         $horario->update($fields);
 
-
-    
-    return response()->json($response, 200);    
+        return response()->json($horario, 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Horario $horario)
+    public function destroyHorario(Horario $horario)
     {
         $horario->delete();
         return response()->json(['message' => 'Horario eliminado'], 200);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Appointment;
 use App\Models\Patient;
 use App\Models\Medico;
+use App\Models\Horario;
 use App\Models\EspecialidadMedica;
 use App\Rules\TimeValidation;
 use Illuminate\Http\Request;
@@ -145,7 +146,7 @@ class AppointmentController extends Controller
         return response()->json(['message' => 'Especialidad asociada correctamente'], 200);
     }
 
-    public function getHorarios(Medico $medico, EspecialidadMedica $especialidad) // se recibe un objeto de tipo Pais como parámetro  
+ /*    public function getHorarios(Medico $medico, EspecialidadMedica $especialidad) // se recibe un objeto de tipo Pais como parámetro  
     {
         $especialidadMedica = $medico->especialidadesMedicas()->where('id', $especialidad->id)->first();
         if (!$especialidadMedica) {
@@ -154,34 +155,74 @@ class AppointmentController extends Controller
     
         $horarios = $medico->horarios; // se asignan los horarios a la variable $horarios y se retornan en formato json
         return response()->json($horarios, 200);
+    } */
+
+    public function getCitas (Medico $medico, EspecialidadMedica $especialidad)
+    {
+        $especialidadMedica = $medico->especialidadesMedicas()->where('id', $especialidad->id)->first();
+        if (!$especialidadMedica) {
+            return response()->json(['error' => 'especialidad no encontrada para el medico'], 404);
+        }
+    
+        $citas = $medico->citas; // se asignan los horarios a la variable $horarios y se retornan en formato json
+        return response()->json($citas, 200);
     }
 
-
-    public function get_citas(Medico $medico, Especialidad $especialidad, Horario $horario)
+    public function getCita(Medico $medico, EspecialidadMedica $especialidad, Appointment $cita)
     {
-        // Lógica para obtener las citas de un médico con una especialidad y un horario
+        $especialidadMedica = $medico->especialidadesMedicas()->where('id', $especialidad->id)->first();
+        if (!$especialidadMedica) {
+            return response()->json(['error' => 'especialidad no encontrada para el medico'], 404);
+        }
+    
+        $cita = $medico->citas()->where('id', $cita->id)->first();
+        if (!$cita) {
+            return response()->json(['error' => 'cita no encontrada para el medico'], 404);
+        }
+    
+        return response()->json($cita, 200);
     }
 
-    public function get_cita(Medico $medico, Especialidad $especialidad, Horario $horario, Cita $cita)
+    public function createCita(Request $request, Medico $medico, EspecialidadMedica $especialidad)
     {
-        // Lógica para obtener una cita específica
+        $fields = $request->validate([
+            'patient_id' => 'required|integer',
+            'date' => 'required|date',
+            'hour' => ['required', new TimeValidation()],
+        ]);
+
+        $cita = Appointment::create([
+            'patient_id' => $fields['patient_id'],
+            'medico_id' => $medico->id,
+            'especialidad_id' => $especialidad->id,
+            'date' => $fields['date'],
+            'hour' => $fields['hour'],
+        ]);
+
+        return response()->json($cita, 201);
     }
 
-    public function create_cita(Request $request, Medico $medico, Especialidad $especialidad, Horario $horario)
+    public function updateCita(Request $request, Medico $medico, EspecialidadMedica $especialidad, Appointment $cita)
     {
-        // Lógica para crear una cita para un médico con una especialidad y un horario
+        $fields = $request->validate([
+            'patient_id' => 'required|integer',
+            'date' => 'required|date',
+            'hour' => ['required', new TimeValidation()],
+        ]);
+
+        $cita->update([
+            'patient_id' => $fields['patient_id'],
+            'date' => $fields['date'],
+            'hour' => $fields['hour'],
+        ]);
+
+        return response()->json($cita, 200);
     }
 
-    public function update_cita(Request $request, Medico $medico, Especialidad $especialidad, Horario $horario, Cita $cita)
+    public function destroyCita(Medico $medico, EspecialidadMedica $especialidad, Appointment $cita)
     {
-        // Lógica para actualizar una cita para un médico con una especialidad y un horario
-    }
-
-    public function destroy_cita(Medico $medico, Especialidad $especialidad, Horario $horario, Cita $cita)
-    {
-        // Lógica para eliminar una cita para un médico con una especialidad y un horario
+        $cita->delete();
+        return response()->json('message: "Cita eliminada"', 200);
     }
 
 }
-
-

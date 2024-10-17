@@ -34,8 +34,7 @@ use App\Models\Perfiles;
 use App\Http\Controllers\MedicamentosController;
 use App\Http\Controllers\MetodosPController;
 use App\Http\Controllers\AppointmentController;
-
-
+use App\Http\Controllers\HorarioController;
 
 Route::get('/compania/{empresas}', [CompaniaController::class, 'getEmpresas']);
 Route::get('/empresas', [EmpresaController::class, 'index']);
@@ -209,6 +208,13 @@ Route::post('/cita/{medico}/especialidades/{especialidad}/horarios/{horario}/cit
 Route::put('/cita/{medico}/especialidades/{especialidad}/horarios/{horario}/citas/{cita}', [AppointmentController::class, 'updateCita']); // ruta para actualizar una cita de un medico con una especialidad y un horario
 
 Route::delete('/cita/{medico}/especialidades/{especialidad}/horarios/{horario}/citas/{cita}', [AppointmentController::class, 'destroyCita']); // ruta para eliminar una cita de un medico con una especialidad y un horario
+
+
+// rutas para crear y eliminar horarios de un medico con una especialidad  
+Route::get('/cita/{medico}/especialidades/{especialidad}/horarios', [HorarioController::class, 'getHorarios']); // ruta para obtener los horarios de un medico con una especialidad 
+Route::post('/cita/{medico}/especialidades/{especialidad}/horarios', [HorarioController::class, 'createHorario']); // ruta para crear un horario de un medico con una especialidad
+Route::delete('/cita/{medico}/especialidades/{especialidad}/horarios/{horario}', [HorarioController::class, 'destroyHorario']); // ruta para eliminar un horario de un medico con una especialidad
+Route::update('/cita/{medico}/especialidades/{especialidad}/horarios/{horario}', [HorarioController::class, 'updateHorario']); // ruta para actualizar un horario de un medico con una especialidad
 
 
 });
