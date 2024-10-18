@@ -3,6 +3,7 @@
 use App\Http\Controllers\EspecialidadMedicaController;
 use App\Http\Controllers\MedicoController;
 use App\Http\Controllers\PacienteController;
+use App\Http\Controllers\RecetaController;
 use App\Http\Controllers\ReligionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -135,7 +136,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/medico/{medico}', [MedicoController::class, 'show']);
     Route::post('/medico', [MedicoController::class, 'create']);
     Route::put('/medico/{medico}', [MedicoController::class, 'update']);
-    Route::post('/medico/{medico}', [MedicoController::class, 'update']);
+    //Route::post('/medico/{medico}', [MedicoController::class, 'update']);
     Route::delete('/medico/{medico}', [MedicoController::class,'destroy']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -182,6 +183,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/metodoPagos/{metodoPagos}', [MetodosPController::class, 'destroy' ]);
 
     //ruta para obtener la empresa de una compañia 
+
+    Route::get('/receta', [RecetaController::class, 'index']);
+    Route::get('/receta/{receta}', [RecetaController::class, 'show']);
+    Route::post('/receta', [RecetaController::class, 'create']);
+    Route::post('/receta/{receta}', [RecetaController::class, 'update']);
+    Route::put('/receta/{receta}', [RecetaController::class, 'update']);
+    Route::delete('/receta/{receta}', [RecetaController::class, 'destroy']);
 
   
 });
