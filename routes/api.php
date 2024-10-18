@@ -197,24 +197,23 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 //ruta para obtener las especialidades de los medicos
     Route::get('/cita/{medico}/especialidades', [AppointmentController::class, 'getEspecialidadesMedicas']);
 
-Route::get('/cita/{medico}/especialidades/{especialidad}/horarios', [AppointmentController::class, 'getHorarios']); // ruta para obtener los horarios de un medico con una especialidad
+Route::get('/cita/{medico.id}/especialidades/{especialidad.id}/horarios', [AppointmentController::class, 'getHorarios']); // ruta para obtener los horarios de un medico con una especialidad
 
-Route::get('/cita/{medico}/especialidades/{especialidad}/horarios/{horario}/citas', [AppointmentController::class, 'getCitas']); // ruta para obtener las citas de un medico con una especialidad y un horario 
+Route::get('/cita/{medico.id}/especialidades/{especialidad.id}/horarios/{horario.id}/citas', [AppointmentController::class, 'getCitas']); // ruta para obtener las citas de un medico con una especialidad y un horario 
 
-Route::get('/cita/{medico}/especialidades/{especialidad}/horarios/{horario}/citas/{cita}', [AppointmentController::class, 'getCita']); // ruta para obtener una cita de un medico con una especialidad y un horario
+Route::get('/cita/{medico.id}/especialidades.id/{especialidad.id}/horarios/{horario.id}/citas/{cita.id}', [AppointmentController::class, 'getCita']); // ruta para obtener una cita de un medico con una especialidad y un horario
 
-Route::post('/cita/{medico}/especialidades/{especialidad}/horarios/{horario}/citas', [AppointmentController::class, 'createCita']); // ruta para crear una cita de un medico con una especialidad y un horario
+Route::post('/cita/{medico.id}/especialidades/{especialidad.id}/horarios/{horario.id}/citas', [AppointmentController::class, 'createCita']); // ruta para crear una cita de un medico con una especialidad y un horario
 
-Route::put('/cita/{medico}/especialidades/{especialidad}/horarios/{horario}/citas/{cita}', [AppointmentController::class, 'updateCita']); // ruta para actualizar una cita de un medico con una especialidad y un horario
+Route::put('/cita/{medico.id}/especialidades/{especialidad.id}/horarios/{horario.id}/citas/{cita.id}', [AppointmentController::class, 'updateCita']); // ruta para actualizar una cita de un medico con una especialidad y un horario
 
-Route::delete('/cita/{medico}/especialidades/{especialidad}/horarios/{horario}/citas/{cita}', [AppointmentController::class, 'destroyCita']); // ruta para eliminar una cita de un medico con una especialidad y un horario
+Route::delete('/cita/{medico.id}/especialidades/{especialidad.id}/horarios/{horario.id}/citas/{cita.id}', [AppointmentController::class, 'destroyCita']); // ruta para eliminar una cita de un medico con una especialidad y un horario
 
 
 // rutas para crear y eliminar horarios de un medico con una especialidad  
-Route::get('/cita/{medico}/especialidades/{especialidad}/horarios', [HorarioController::class, 'getHorarios']); // ruta para obtener los horarios de un medico con una especialidad 
-Route::post('/cita/{medico}/especialidades/{especialidad}/horarios', [HorarioController::class, 'createHorario']); // ruta para crear un horario de un medico con una especialidad
-Route::delete('/cita/{medico}/especialidades/{especialidad}/horarios/{horario}', [HorarioController::class, 'destroyHorario']); // ruta para eliminar un horario de un medico con una especialidad
-Route::update('/cita/{medico}/especialidades/{especialidad}/horarios/{horario}', [HorarioController::class, 'updateHorario']); // ruta para actualizar un horario de un medico con una especialidad
-
+Route::get('/cita/{medico.id}/especialidades/{especialidad.id}/horarios', [HorarioController::class, 'getHorarios']); // ruta para obtener los horarios de un medico con una especialidad 
+Route::post('/cita/{medico.id}/especialidades/{especialidad.id}/horarios', [HorarioController::class, 'createHorario']); // ruta para crear un horario de un medico con una especialidad
+Route::put('/cita/{medico.id}/especialidades/{especialidad.id}/horarios/{horario.id}', [HorarioController::class, 'updateHorario']); // ruta para actualizar un horario de un medico con una especialidad
+Route::delete('/cita/{medico.id}/especialidades/{especialidad.id}/horarios/{horario.id}', [HorarioController::class, 'destroyHorario']); // ruta para eliminar un horario de un medico con una especialidad
 
 });
