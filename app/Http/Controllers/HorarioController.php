@@ -23,7 +23,7 @@ class HorarioController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function getHorarios(Medico $medico, EspecialidadMedica $especialidad)
+/*     public function getHorarios(Medico $medico, EspecialidadMedica $especialidad)
     {
         $especialidadMedica = $medico->especialidadesMedicas()->where('id', $especialidad->id)->first();
         if (!$especialidadMedica) {
@@ -32,7 +32,22 @@ class HorarioController extends Controller
     
         $horarios = $medico->horarios; // se asignan los horarios a la variable $horarios y se retornan en formato json
         return response()->json($horarios, 200);
+    } */
+
+    public function getHorarios(Medico $medico, EspecialidadMedica $especialidad)
+    {
+        // Verificar si el médico tiene la especialidad específica
+        $especialidadMedica = $medico->especialidadesMedicas()->where('id', $especialidad->id)->first();
+        if (!$especialidadMedica) {
+            return response()->json(['error' => 'especialidad no encontrada para el medico'], 404);
+        }
+
+        // Obtener los horarios del médico filtrados por la especialidad
+        $horarios = $medico->horarios()->where('especialidad_id', $especialidad->id)->get();
+
+        return response()->json($horarios, 200);
     }
+
 
     public function createHorario(Request $request, Medico $medico, EspecialidadMedica $especialidad)
     {
