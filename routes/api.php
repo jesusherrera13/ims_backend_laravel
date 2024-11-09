@@ -211,9 +211,16 @@ Route::delete('/cita/{medico.id}/especialidades/{especialidad.id}/horarios/{hora
 
 
 // rutas para crear y eliminar horarios de un medico con una especialidad  
+//esto sirve para traerlos en el front end con vuejs 
 Route::get('/horario/{medico.id}/especialidades/{especialidad.id}/horarios', [HorarioController::class, 'getHorarios']); // ruta para obtener los horarios de un medico con una especialidad 
 Route::post('/horario/{medico.id}/especialidades/{especialidad.id}/horarios', [HorarioController::class, 'createHorario']); // ruta para crear un horario de un medico con una especialidad
 Route::put('/horario/{medico.id}/especialidades/{especialidad.id}/horarios/{horario.id}', [HorarioController::class, 'updateHorario']); // ruta para actualizar un horario de un medico con una especialidad
 Route::delete('/horario/{medico.id}/especialidades/{especialidad.id}/horarios/{horario.id}', [HorarioController::class, 'destroyHorario']); // ruta para eliminar un horario de un medico con una especialidad
+
+    // Rutas para horarios
+    Route::get('/horario', [HorarioController::class, 'index']);
+    Route::post('/horario', [HorarioController::class, 'store']);
+    Route::put('/horario/{horario}', [HorarioController::class, 'update']);
+    Route::delete('/horario/{horario}', [HorarioController::class, 'destroy']);
 
 });
