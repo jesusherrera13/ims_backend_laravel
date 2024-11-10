@@ -219,7 +219,7 @@ Route::delete('/horario/{medico.id}/especialidades/{especialidad.id}/horarios/{h
 
     // Rutas para horarios
     Route::get('/horario', [HorarioController::class, 'index']);
-    Route::post('/horario', [HorarioController::class, 'store']);
+    Route::post('/horario', [HorarioController::class, 'create']);
     Route::put('/horario/{horario}', [HorarioController::class, 'update']);
     Route::delete('/horario/{horario}', [HorarioController::class, 'destroy']);
 

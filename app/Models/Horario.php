@@ -4,29 +4,38 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Horario extends Model
 {
-    use HasFactory;
-   protected $table = 'horarios';
+    use HasFactory, SoftDeletes;
+
+    protected $table = 'horarios';
+
     protected $fillable = [
         'start_time',
         'end_time',
+        'intervalo',
+        'active',
+        'medico_id',
+        'especialidad_id',
     ];
 
-    public function medicos()
+    // Definir la relación con el modelo Medico
+    public function medico()
     {
-        return $this->hasMany(Medico::class);
+        return $this->belongsTo(Medico::class);
     }
 
-    public function especialidades()
+    // Definir la relación con el modelo EspecialidadMedica
+    public function especialidad()
     {
-        return $this->hasMany(Especialidad::class);
+        return $this->belongsTo(EspecialidadMedica::class);
     }
 
-public function citas()
+    // Definir la relación con el modelo Appointment
+    public function citas()
     {
         return $this->hasMany(Appointment::class);
     }
-
 }
