@@ -21,7 +21,7 @@ return new class extends Migration
             $table->time('end_time')->comment('hora de fin del horario');
             $table->integer('intervalo')->comment('intervalo de la cita en minutos');
            // $table->enum('day', ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'])->comment('dia de la semana');
-            $table->boolean('active')->default(true)->comment('estado del horario por si esta de vacaciones'); // activo o inactivo por si esta de vacaciones
+            $table->boolean('vacaciones')->default(false)->comment('estado del horario por si esta de vacaciones'); // activo o inactivo por si esta de vacaciones
             $table->unique(['medico_id', 'especialidad_id', 'start_time', 'end_time']);
             $table->softDeletes();
             $table->timestamps();

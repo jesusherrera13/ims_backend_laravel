@@ -27,7 +27,8 @@ class HorarioController extends Controller
             'medico_id',
             'especialidad_id',
             'start_time',
-            'end_time'
+            'end_time',
+            'vacaciones'
         )
         ->get()
             ->map(function ($horario) {
@@ -39,6 +40,7 @@ class HorarioController extends Controller
                     'end_time' => \Carbon\Carbon::createFromFormat('H:i:s', $horario->end_time)->format('H:i'),
                     'especialidad_name' => $horario->especialidad->nombre ?? null,
                     'medico_name' => $horario->medico->nombre ?? null,
+                    'vacaciones' => $horario->vacaciones,
                 ];
             });
 
@@ -53,7 +55,7 @@ class HorarioController extends Controller
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i',
             'intervalo' => 'required|integer',
-            'active' => 'required|boolean',
+            'vacaciones' => 'required|boolean',
         ]);
 
         // Crear un nuevo horario
@@ -70,7 +72,7 @@ class HorarioController extends Controller
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i',
             'intervalo' => 'required|integer',
-            'active' => 'required|boolean',
+            'vacaciones' => 'required|boolean',
         ]);
 
         // Actualizar el horario
@@ -132,7 +134,7 @@ class HorarioController extends Controller
             'start_time' => $fields['start_time'],
             'end_time' => $fields['end_time'],
             'intervalo' => 30, // intervalo por defecto
-            'active' => true, // activo por defecto
+            'vacaciones' => false, // activo por defecto
         ]);
 
         return response()->json($horario, 201);
@@ -144,7 +146,7 @@ class HorarioController extends Controller
             'start_time' => ['required', new TimeValidation()],
             'end_time' => ['required', new TimeValidation()],
             'intervalo' => ['required', 'integer'], // intervalo de la cita en minutos
-            'active' => ['required', 'boolean'], // activo o inactivo por si esta de vacaciones
+            'vacaciones' => ['required', 'boolean'], // activo o inactivo por si esta de vacaciones
         ]);
 
         $horario->update($fields);

@@ -16,7 +16,7 @@ class Horario extends Model
         'start_time',
         'end_time',
         'intervalo',
-        'active',
+        'vacaciones',
         'medico_id',
         'especialidad_id',
     ];
