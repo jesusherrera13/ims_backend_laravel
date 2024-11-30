@@ -33,6 +33,20 @@ use App\Http\Controllers\PerfilesController;
 use App\Models\Perfiles;
 use App\Http\Controllers\MedicamentosController;
 use App\Http\Controllers\MetodosPController;
+
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TestMailable;
+Route::get('/test-email', function() {
+    Mail::to('jesus.herrera@alerta.com.mx')
+            ->cc('jesusherrera13@gmail.com')
+            ->bcc('eljuegoperfectomx13@gmail.com')
+            ->send(new TestMailable);
+    return "Email enviado";
+});
+
+
+
+
 Route::get('/compania/{empresas}', [CompaniaController::class, 'getEmpresas']);
 Route::get('/empresas', [EmpresaController::class, 'index']);
 Route::get('/empresas/{empresa}', [EmpresaController::class, 'show']);
