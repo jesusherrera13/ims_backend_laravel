@@ -18,15 +18,10 @@ return new class extends Migration
             $table -> foreignId('especialidad_id')->references('id')->on('system_especialidades_medicas');
             $table->date('date');
             $table->time('hour');
+            $table->softDeletes()->comment('ayuda a que no se elimine el registro de la base de datos');
             $table->timestamps();
 
         });
-
-        {
-            Schema::table('appointments', function (Blueprint $table) {
-                $table->softDeletes(); // Agrega la columna deleted_at
-            });
-        }
     
     }
 

@@ -19,6 +19,11 @@ return new class extends Migration
             $table->foreign('especialidad_id')->references('id')->on('system_especialidades_medicas')->onDelete('cascade');
             $table->time('start_time')->comment('hora de inicio del horario');
             $table->time('end_time')->comment('hora de fin del horario');
+            $table->integer('intervalo')->comment('intervalo de la cita en minutos');
+           // $table->enum('day', ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'])->comment('dia de la semana');
+            $table->boolean('vacaciones')->default(false)->comment('estado del horario por si esta de vacaciones'); // activo o inactivo por si esta de vacaciones
+            $table->unique(['medico_id', 'especialidad_id', 'start_time', 'end_time'])->comment('unico por medico, especialidad, hora de inicio y fin');
+            $table->softDeletes()->comment('fecha de eliminacion del horario');
             $table->timestamps();
         });
     }

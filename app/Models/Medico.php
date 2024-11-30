@@ -41,4 +41,9 @@ class Medico extends Model
         return $this->hasMany(EspecialidadMedica::class, 'especialidad_id');
     }
 
+    public function horarios()
+    {
+        return $this->hasMany(Horario::class);
+    }
+
 }

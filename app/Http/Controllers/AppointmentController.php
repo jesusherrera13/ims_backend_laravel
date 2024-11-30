@@ -35,7 +35,7 @@ class AppointmentController extends Controller
                     'medico_id' => $appointment->medico_id,
                     'especialidad_id' => $appointment->especialidad_id,
                     'date' => $appointment->date,
-                   'hour' => \Carbon\Carbon::createFromFormat('H:i:s', $appointment->hour)->format('H:i'),
+                    'hour' => \Carbon\Carbon::createFromFormat('H:i:s', $appointment->hour)->format('H:i'),
                     'especialidad_name' => $appointment->especialidad->nombre ?? null,
                     'patient_name' => $appointment->patient->nombre ?? null,
                     'patient_lastname' => $appointment->patient->apellido1 ?? null,
