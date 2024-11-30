@@ -22,12 +22,6 @@ return new class extends Migration
             $table->timestamps();
 
         });
-
-        {
-            Schema::table('appointments', function (Blueprint $table) {
-                $table->softDeletes(); // Agrega la columna deleted_at
-            });
-        }
     
     }
 
