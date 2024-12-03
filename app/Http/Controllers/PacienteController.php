@@ -32,6 +32,8 @@ class PacienteController extends Controller
                 'domicilio' => $paciente->domicilio,
                 'foto_perfil' => $paciente->foto_perfil,
                 'nombre_religion' => $paciente->religion->nombre ?? null,
+                'nombre_completo' => $paciente->nombre . ' ' . $paciente->apellido1 . ' ' . $paciente->apellido2,
+
             ];
         });
 
