@@ -3,6 +3,7 @@
 use App\Http\Controllers\EspecialidadMedicaController;
 use App\Http\Controllers\MedicoController;
 use App\Http\Controllers\PacienteController;
+use App\Http\Controllers\RecetaController;
 use App\Http\Controllers\ReligionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -138,14 +139,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/medico/{medico}', [MedicoController::class, 'show']);
     Route::post('/medico', [MedicoController::class, 'create']);
     Route::put('/medico/{medico}', [MedicoController::class, 'update']);
-    Route::post('/medico/{medico}', [MedicoController::class, 'update']);
+    //Route::post('/medico/{medico}', [MedicoController::class, 'update']);
     Route::delete('/medico/{medico}', [MedicoController::class,'destroy']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::resource('empleado', EmployeeController::class);
     Route::resource('empresa', EmpresaController::class);
-    Route::resource('departamento', DepartamentoController::class);
+    // Route::resource('departamento', DepartamentoController::class);
     Route::resource('indicador', IndicadorController::class);
     Route::resource('equipo', EquipoController::class);
     Route::resource('compania', CompaniaController::class);
@@ -222,5 +223,24 @@ Route::delete('/horario/{medico.id}/especialidades/{especialidad.id}/horarios/{h
     Route::post('/horario', [HorarioController::class, 'create']);
     Route::put('/horario/{horario}', [HorarioController::class, 'update']);
     Route::delete('/horario/{horario}', [HorarioController::class, 'destroy']);
+
+Route::get('/receta', [RecetaController::class, 'index']);
+Route::get('/receta/{id}', [RecetaController::class, 'show']);
+Route::post('/receta', [RecetaController::class, 'create']);
+Route::post('/receta/{receta}', [RecetaController::class, 'update']);
+Route::put('/receta/{receta}', [RecetaController::class, 'update']);
+Route::delete('/receta/{receta}', [RecetaController::class, 'destroy']);
+Route::get('/receta/{id}/pdf', [RecetaController::class, 'generatePDF']);
+//Route::get('/receta/{id}/pdf/{size?}', [RecetaController::class, 'generatePDF']);
+// routes/api.php
+
+Route::post('/receta/preview', [RecetaController::class, 'previewPDF']);
+
+Route::post('/receta/test', function() {
+    return response()->json(['message' => 'Ruta de prueba funcionando'], 200);
+});
+
+
+
 
 });

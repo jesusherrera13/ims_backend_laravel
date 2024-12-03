@@ -33,6 +33,8 @@ class MedicoController extends Controller
 
     public function create(Request $request)
     {
+
+       
         $fields = $request->validate([
             'nombre' => 'required|string|max:255',
             'rfc' => 'required|string|max:13|unique:medicos,rfc',
