@@ -35,9 +35,9 @@ class EspecialidadMedicaController extends Controller
         return response()->json($especialidad, 200);
     }
 
-    public function destroy(EspecialidadMedica $especialidad)
+/*     public function destroy(EspecialidadMedica $especialidad)
     {
         $especialidad->delete();
         return response()->json(['message' => 'Especialidad eliminada'], 200);
-    }
+    } */
 }

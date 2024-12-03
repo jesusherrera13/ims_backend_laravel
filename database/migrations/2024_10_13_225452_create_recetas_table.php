@@ -17,6 +17,7 @@ return new class extends Migration
             //$table->foreignId('cita_id')->constrained('citas')->onDelete('cascade');
             $table->text('cita_id')->nullable();
             $table->foreignId('especialidad_id')->constrained('system_especialidades_medicas')->onDelete('cascade');
+            $table->string('nombre');
             $table->text('descrip');
             $table->date('fecha');
             $table->char('sta', 1);

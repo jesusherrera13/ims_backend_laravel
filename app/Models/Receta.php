@@ -12,7 +12,7 @@ class Receta extends Model
     protected $table = 'recetas';
     protected $primaryKey = 'id_receta';
 
-    protected $fillable = ['paciente_id', 'cita_id', 'especialidad_id', 'descrip', 'fecha', 'sta'];
+    protected $fillable = ['paciente_id', 'cita_id', 'especialidad_id', 'nombre','descrip', 'fecha', 'sta'];
 
     // Relación con Paciente
     public function paciente()
