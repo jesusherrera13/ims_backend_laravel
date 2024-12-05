@@ -29,6 +29,7 @@ use App\Http\Controllers\PerfilesController;
 use App\Models\Perfiles;
 use App\Http\Controllers\MedicamentosController;
 use App\Http\Controllers\MetodosPController;
+use App\Http\Controllers\CitasEController;
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
@@ -144,4 +145,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/metodoPagos', [MetodosPController::class, 'create']);
     Route::put('/metodoPagos/{metodoPagos}', [MetodosPController::class, 'update']);
     Route::delete('/metodoPagos/{metodoPagos}', [MetodosPController::class, 'destroy' ]);
+
+    Route::get('/citasE', [CitasEController::class, 'index']);
+    Route::get('/citasE/{citasE}', [CitasEController::class, 'show']);
+    Route::post('/citasE', [CitasEController::class, 'create']);
+    Route::put('/citasE/{citasE}', [CitasEController::class, 'update']);
+    Route::delete('/citasE/{citasE}', [CitasEController::class, 'destroy' ]);
 });
