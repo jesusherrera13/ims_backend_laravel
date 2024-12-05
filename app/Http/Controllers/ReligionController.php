@@ -4,62 +4,67 @@ namespace App\Http\Controllers;
 
 use App\Models\Religion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReligionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $query = DB::table("system_religiones")
+            ->select("id", "nombre")
+            ->orderBy('nombre', 'asc'); // Ordenar alfabéticamente por el nombre
+
+        $response = $query->get();
+
+        return response()->json($response, 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+
+    public function create(Request $request)
     {
-        //
+
+        $fields = $request->validate([
+
+            'nombre' => 'required|string'
+
+            
+        ]);
+
+        $religion = Religion::create([
+            'nombre' => $fields['nombre']
+        ]);
+
+        return response()->json($religion, 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Religion $religion)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Religion $religion)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Religion $religion)
     {
-        //
+
+        $fields = $request->validate([
+            'nombre' => 'required|string'
+        ]);
+
+        $religion->update($fields);
+
+        return response()->json($religion, 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Religion $religion)
     {
-        //
+        $religion->delete();
+        return response()->json(['message' => 'Religion eliminada'], 200);
+
+    }
+
+    // se agrega la función getEstados para obtener los estados de un país
+    
+    public function getReligiones(Religion $religion ) // se recibe un objeto de tipo Religion como parámetro  
+    {
+        if (!$religion) {
+            return response()->json(['error' => 'Religión no encontrada'], 404);
+        }
+    
+        $religiones = $religion->estados; // se asignan los estados a la variable $estados y se retornan en formato json 
+        return response()->json($religiones, 200);
     }
 }

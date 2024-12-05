@@ -3,63 +3,41 @@
 namespace App\Http\Controllers;
 
 use App\Models\EspecialidadMedica;
+use App\Models\Medico;
 use Illuminate\Http\Request;
 
 class EspecialidadMedicaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return response()->json(EspecialidadMedica::all(), 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $fields = $request->validate([
+            'nombre' => 'required|string|max:255',
+        ]);
+
+        $especialidad = EspecialidadMedica::create($fields);
+
+        return response()->json($especialidad, 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function update(Request $request, EspecialidadMedica $especialidad)
     {
-        //
+        $fields = $request->validate([
+            'nombre' => 'required|string|max:255',
+        ]);
+
+        $especialidad->update($fields);
+
+        return response()->json($especialidad, 200);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(EspecialidadMedica $especialidadMedica)
+/*     public function destroy(EspecialidadMedica $especialidad)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(EspecialidadMedica $especialidadMedica)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, EspecialidadMedica $especialidadMedica)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(EspecialidadMedica $especialidadMedica)
-    {
-        //
-    }
+        $especialidad->delete();
+        return response()->json(['message' => 'Especialidad eliminada'], 200);
+    } */
 }

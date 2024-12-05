@@ -56,6 +56,7 @@ class DatabaseSeeder extends Seeder
                         'nombre' => 'Analythical',
                         'route' => '/',
                     ],
+                    /*
                     [
                         'nombre' => 'Classic',
                         'route' => '/dashboards/classic',
@@ -76,6 +77,7 @@ class DatabaseSeeder extends Seeder
                         'nombre' => 'Modern',
                         'route' => '/dashboards/modern',
                     ]
+                    */
                 ],
             ],
             [
@@ -145,6 +147,42 @@ class DatabaseSeeder extends Seeder
                         'nombre' => 'Plazas',
                         'route' => '/plazas'
                     ],
+                    [
+                        'nombre' => 'Medicamentos',
+                        'route' => '/medicamentos'
+                    ],
+                    [
+                        'nombre' => 'Método de Pago',
+                        'route' => '/metodo-de-pago'
+                    ],
+                    [
+                        'nombre' => 'Religiones',
+                        'route' => '/religiones'
+                    ],
+                    [
+                        'nombre' => 'Paciente',
+                        'route' => '/pacientes'
+                    ],
+                    [
+                        'nombre' => 'Especialidad',
+                        'route' => '/especialidad'
+                    ],
+                    [
+                        'nombre' => 'Médicos',
+                        'route' => '/medicos'
+                    ],
+                    [
+                        'nombre' => 'Citas',
+                        'route' => '/cita'
+                    ],
+                    [
+                        'nombre' => 'Horarios',
+                        'route' => '/horarios'
+                    ],
+                    [
+                        'nombre' => 'Recetas',
+                        'route' => '/recetas'
+                    ],
                 ],
             ]
         ];
@@ -165,6 +203,5 @@ class DatabaseSeeder extends Seeder
                 }
             }
         }        
-        
     }
 }

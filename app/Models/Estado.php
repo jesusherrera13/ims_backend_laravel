@@ -14,11 +14,18 @@ class Estado extends Model
     //nombre
     protected $fillable = [
         'nombre',
+        'codigo',
+        'abreviacion',
         'pais_id'
     ];
 
     public function pais()
     {
         return $this->belongsTo(Pais::class, 'pais_id');
+    }
+
+    public function medicos()
+    {
+        return $this->hasMany(Medico::class);
     }
 }

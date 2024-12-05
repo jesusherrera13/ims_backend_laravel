@@ -21,4 +21,9 @@ class Ciudad extends Model
     {
         return $this->belongsTo(Municipio::class, 'municipio_id');
     }
+
+    public function medicos()
+    {
+        return $this->hasMany(Medico::class);
+    }
 }
