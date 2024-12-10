@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\citasE;
+use App\Models\citasEfectivas;
 use Illuminate\Http\Request;
 
-class CitasEController extends Controller
+class CitasEfectivasController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return response()->json(citasE::all(), 200);
+        return response()->json(citasEfectivas::all(), 200);
     }
 
     /**
@@ -29,7 +29,7 @@ class CitasEController extends Controller
 
         ]);
 
-        $citaE = citasE::create([
+        $citaE = citasEfectivas::create([
             'paciente' => $fields['paciente'],
             'especialidadM' => $fields['especialidadM'],
             'doctor' => $fields['doctor'],
@@ -49,7 +49,7 @@ class CitasEController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(citasE $citaE)
+    public function show(citasEfectivas $citaE)
     {
         return response()->json($citaE, 200);
     }
@@ -57,7 +57,7 @@ class CitasEController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, citasE $citasE)
+    public function update(Request $request, citasEfectivas $citasE)
     {
         $fields = $request->validate([
             'paciente' => 'required|string' ,
@@ -68,7 +68,7 @@ class CitasEController extends Controller
 
         ]);
 
-        $citasE = citasE::create([
+        $citasE = citasEfectivas::create([
             'paciente' => $fields['paciente'],
             'especialidadM' => $fields['especialidadM'],
             'doctor' => $fields['doctor'],
@@ -88,7 +88,7 @@ class CitasEController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(citasE $citasE)
+    public function destroy(citasEfectivas $citasE)
     {
         $citasE->delete();
         return response()->json(['message' => 'cita eliminada'], 200);

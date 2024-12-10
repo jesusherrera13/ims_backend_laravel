@@ -33,9 +33,11 @@ use App\Http\Controllers\SyncLogController;
 use App\Http\Controllers\PerfilesController;
 use App\Models\Perfiles;
 use App\Http\Controllers\MedicamentosController;
-use App\Http\Controllers\MetodosPController;
+use App\Http\Controllers\MetodosPagoController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\HorarioController;
+use App\Http\Controllers\CitasEfectivasController;
+use App\Models\MetodosPago;
 
 Route::get('/compania/{empresas}', [CompaniaController::class, 'getEmpresas']);
 Route::get('/empresas', [EmpresaController::class, 'index']);
@@ -179,11 +181,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/medicamentos/{medicamentos}', [MedicamentosController::class, 'update']);
     Route::delete('/medicamentos/{medicamentos}', [MedicamentosController::class, 'destroy' ]);
 
-    Route::get('/metodoPagos', [MetodosPController::class, 'index']);
-    Route::get('/metodoPagos/{metodoPagos}', [MetodosPController::class, 'show']);
-    Route::post('/metodoPagos', [MetodosPController::class, 'create']);
-    Route::put('/metodoPagos/{metodoPagos}', [MetodosPController::class, 'update']);
-    Route::delete('/metodoPagos/{metodoPagos}', [MetodosPController::class, 'destroy' ]);
+    Route::get('/metodoPagos', [MetodosPagoController::class, 'index']);
+    Route::get('/metodoPagos/{metodoPagos}', [MetodosPagoController::class, 'show']);
+    Route::post('/metodoPagos', [MetodosPagoController::class, 'create']);
+    Route::put('/metodoPagos/{metodoPagos}', [MetodosPagoController::class, 'update']);
+    Route::delete('/metodoPagos/{metodoPagos}', [MetodosPagoController::class, 'destroy' ]);
 
     //ruta para obtener la empresa de una compañia 
 
@@ -240,13 +242,10 @@ Route::post('/receta/test', function() {
     return response()->json(['message' => 'Ruta de prueba funcionando'], 200);
 });
 
+Route::get('/citasE', [CitasEfectivasController::class, 'index']);
+Route::get('/citasE/{citasE}', [CitasEfectivasController::class, 'show']);
+Route::post('/citasE', [CitasEfectivasController::class, 'create']);
+Route::put('/citasE/{citasE}', [CitasEfectivasController::class, 'update']);
+Route::delete('/citasE/{citasE}', [CitasEfectivasController::class, 'destroy' ]);
 
-
-
-
-    Route::get('/citasE', [CitasEController::class, 'index']);
-    Route::get('/citasE/{citasE}', [CitasEController::class, 'show']);
-    Route::post('/citasE', [CitasEController::class, 'create']);
-    Route::put('/citasE/{citasE}', [CitasEController::class, 'update']);
-    Route::delete('/citasE/{citasE}', [CitasEController::class, 'destroy' ]);
 });

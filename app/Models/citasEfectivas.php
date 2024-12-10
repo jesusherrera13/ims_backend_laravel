@@ -5,12 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MetodosP extends Model
+class citasEfectivas extends Model
 {
     use HasFactory;
-    protected $table = "metodos_p_s";
-
+    protected $table = "citas_efectivas";
     protected $fillable = [
-        'nombre',
+        'paciente',
+        'especialidadM',
+        'doctor',
+        'fecha',
+        'efectividad',
     ];
 }

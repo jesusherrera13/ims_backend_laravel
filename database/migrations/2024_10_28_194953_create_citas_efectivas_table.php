@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('citas_e_s', function (Blueprint $table) {
+        Schema::create('citas_efectivas', function (Blueprint $table) {
             $table->id();
             $table->string('paciente');
             $table->string('especialidadM');
@@ -20,13 +20,13 @@ return new class extends Migration
             $table->string('efectividad');
             $table->timestamps();
         });
-    }
+    }//
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('citas_e_s');
+        Schema::dropIfExists('citas_efectivas');
     }
 };

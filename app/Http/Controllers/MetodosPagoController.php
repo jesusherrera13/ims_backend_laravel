@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MetodosP;
+use App\Models\MetodosPago;
 use Illuminate\Http\Request;
 
-class MetodosPController extends Controller
+class MetodosPagoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return response()->json(MetodosP::all(), 200);
+        return response()->json(MetodosPago::all(), 200);
     }
 
     /**
@@ -24,7 +24,7 @@ class MetodosPController extends Controller
             'nombre' => 'required|string',
         ]);
 
-        $metodosP = MetodosP::create([
+        $metodosP = MetodosPago::create([
             'nombre' => $fields['nombre'],
             
         ]);
@@ -40,7 +40,7 @@ class MetodosPController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(MetodosP $metodosP)
+    public function show(MetodosPago $metodosP)
     {
         return response()->json($metodosP, 200);
     }
@@ -48,7 +48,7 @@ class MetodosPController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, MetodosP $metodoPagos)
+    public function update(Request $request, MetodosPago $metodoPagos)
     {
         $fields = $request->validate([
             'nombre' => 'required|string',
@@ -66,7 +66,7 @@ class MetodosPController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(MetodosP $metodoPagos)
+    public function destroy(MetodosPago $metodoPagos)
     {
         {
             $metodoPagos->delete();
