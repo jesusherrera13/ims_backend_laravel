@@ -11,18 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('metodos_p_s', function (Blueprint $table) {
+        Schema::create('citas_efectivas', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
+            $table->string('paciente');
+            $table->string('especialidadM');
+            $table->string('doctor');
+            $table->date('fecha');
+            $table->string('efectividad');
             $table->timestamps();
         });
-    }
+    }//
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('metodos_p_s');
+        Schema::dropIfExists('citas_efectivas');
     }
 };
